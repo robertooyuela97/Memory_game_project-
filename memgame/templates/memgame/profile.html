@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil de Usuario - Memory Game</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  {% load static %}
+  <!-- Opcional si tienes tu CSS -->
+  <link rel="stylesheet" href="{% static 'memgame/css/style.css' %}">
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header text-center">
+            <h2>Perfil de {{ profile.user.username }}</h2>
+          </div>
+          <div class="card-body">
+            <h4>Estadísticas Generales:</h4>
+            <ul class="list-group mb-4">
+              <li class="list-group-item">Victorias Totales: {{ profile.total_wins }}</li>
+              <li class="list-group-item">Derrotas Totales: {{ profile.total_losses }}</li>
+              <li class="list-group-item">Partidas Jugadas: {{ profile.games_played }}</li>
+            </ul>
+
+            <h4>Historial de Partidas:</h4>
+            {% if game_history %}
+              <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Fecha/Hora</th>
+                      <th>Nivel</th>
+                      <th>Duración (s)</th>
+                      <th>Resultado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for session in game_history %}
+                      <tr>
+                        <td>{{ session.start_time|date:"d M Y H:i" }}</td>
+                        <td>{{ session.level }}</td>
+                        <td>{{ session.duration|floatformat:2|default_if_none:"N/A" }}</td>
+                        <td>
+                          {% if session.is_won %}
+                            <span class="badge badge-success">Victoria</span>
+                          {% elif session.is_won == False %}
+                            <span class="badge badge-danger">Derrota</span>
+                          {% else %}
+                            <span class="badge badge-secondary">En Curso</span>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <p class="text-center">Aún no has jugado ninguna partida.</p>
+            {% endif %}
+
+            <hr>
+            <div class="text-center">
+              <a href="{% url 'memgame:select_level' %}" class="btn btn-primary mt-3">Volver a Selección de Nivel</a>
+              <a href="{% url 'memgame:logout' %}" class="btn btn-secondary mt-3">Cerrar Sesión</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS de Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

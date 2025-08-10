@@ -1,0 +1,417 @@
+/* =========
+    Fuentes & Variables
+    ========= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+    --bg1: #0cc0d8;               /* Un azul muy claro y brillante */
+    --bg2: #0cc0d8;               /* Un azul ligeramente diferente */
+    --card-front: #64b5f6;        /* Azul claro */
+    --card-front-border: #42a5f5; /* Un azul más intenso */
+    --card-back: #ff8a65;         /* Naranja vibrante y atractivo */
+    --card-back-border: #ff7043;  /* Un naranja más intenso y brillante */
+    --text: #212121;
+    --muted: #757575;
+    --accent: #ff7043;            /* Naranja coral brillante para acentos */
+    --shadow: 0 10px 30px rgba(15, 23, 42, .1);
+    --radius: 16px;
+    --transition: .25s ease;
+}
+
+/* =========
+    Body / Layout
+    ========= */
+body {
+
+    background-color: #0cc0d8; /* Un fondo sólido para evitar conflictos */
+    color: var(--text);
+    font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    margin: 0;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: clamp(8px, 2vw, 20px);
+}
+
+/* Contenedor tipo "glass" con degradado */
+.container {
+  background: linear-gradient(135deg, rgba(71, 221, 240, 0.65), rgba(12, 192, 216, 0.45));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(34, 126, 192, 0.8);
+  padding: clamp(24px, 3vw, 36px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto 0.45rem;
+  font-weight: 700;
+  color: #000 !important;
+  letter-spacing: 0.2px;
+  animation: fadeUp 0.45s ease both;
+}
+
+/* =========
+    Tipografía
+    ========= */
+h1, h2, h3 {
+    text-align: center;
+    margin: 0 0 18px;
+    letter-spacing: 0.4px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+h1 {
+    font-size: clamp(26px, 3.2vw, 36px);
+}
+
+h2 {
+    font-size: clamp(22px, 2.6vw, 30px);
+}
+
+h3 {
+    font-size: clamp(18px, 2.2vw, 24px);
+}
+
+p {
+    text-align: center;
+    color: var(--muted);
+    font-size: clamp(14px, 1.8vw, 16px);
+}
+
+/* =========
+    Estilo de la lista de niveles
+    ========= */
+.list-group-item {
+    border-radius: 20px !important;
+    transition: transform var(--transition);
+}
+
+.list-group-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.list-group-item-primary {
+    background-color: #dc3f73 !important; /* Rosa pálido */
+    color: #212121 !important;
+    border-color: #f8bbd0 !important;
+}
+
+.list-group-item-warning {
+    background-color: #37e813 !important; /* Amarillo muy claro */
+    color: #212121 !important;
+    border-color: #fff9c4 !important;
+}
+
+.list-group-item-danger {
+    background-color: #228bd5 !important; /* Azul pálido */
+    color: #212121 !important;
+    border-color: #bbdefb !important;
+}
+
+.stars {
+    color: gold;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    margin-left: 5px;
+}
+
+/* =========
+    Botones
+    ========= */
+.btn-primary, .btn-success, .btn-info, .btn-secondary {
+    margin-top: 10px;
+    border-radius: 14px;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 10px 14px;
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    box-shadow: 0 8px 18px rgba(255, 112, 67, 0.18); /* Sombra con el nuevo color de acento */
+}
+
+.btn-primary:hover,
+.btn-success:hover,
+.btn-info:hover,
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(255, 112, 67, 0.24);
+}
+
+/* =========
+    Grid del juego (SIEMPRE 4 columnas)
+    ========= */
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(110px, 1fr));
+    gap: 18px;
+    max-width: 720px;
+    margin: 22px auto 4px;
+    padding: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    justify-items: center;
+    animation: fadeUp 0.5s ease 0.05s both;
+}
+
+/* Cartas cuadradas con animación de entrada */
+#game-board .card {
+    width: 140px;
+    height: 140px;
+    background: transparent;
+    border: 0;
+    border-radius: 14px;
+    cursor: pointer;
+    perspective: 1000px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+    will-change: transform;
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    animation: cardIn 0.35s ease forwards;
+}
+
+#game-board .card:nth-child(1) { animation-delay: 0.03s; }
+#game-board .card:nth-child(2) { animation-delay: 0.06s; }
+#game-board .card:nth-child(3) { animation-delay: 0.09s; }
+#game-board .card:nth-child(4) { animation-delay: 0.12s; }
+#game-board .card:nth-child(5) { animation-delay: 0.15s; }
+#game-board .card:nth-child(6) { animation-delay: 0.18s; }
+#game-board .card:nth-child(7) { animation-delay: 0.21s; }
+#game-board .card:nth-child(8) { animation-delay: 0.24s; }
+#game-board .card:nth-child(9) { animation-delay: 0.27s; }
+#game-board .card:nth-child(10) { animation-delay: 0.30s; }
+#game-board .card:nth-child(11) { animation-delay: 0.33s; }
+#game-board .card:nth-child(12) { animation-delay: 0.36s; }
+#game-board .card:nth-child(13) { animation-delay: 0.39s; }
+#game-board .card:nth-child(14) { animation-delay: 0.42s; }
+#game-board .card:nth-child(15) { animation-delay: 0.45s; }
+#game-board .card:nth-child(16) { animation-delay: 0.48s; }
+
+#game-board .card:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.05);
+}
+
+#game-board .card-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(.2, .8, .2, 1);
+    transform-style: preserve-3d;
+    border-radius: 14px;
+}
+
+#game-board .card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Caras */
+#game-board .card-front,
+#game-board .card-back {
+    position: absolute;
+    inset: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.2em;
+    font-weight: 800;
+    color: #fff;
+    user-select: none;
+    padding: 0.2em;
+}
+
+#game-board .card-front {
+    background: linear-gradient(160deg, var(--card-front), var(--card-front-border));
+    border: 2px solid var(--card-front-border);
+    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.06);
+}
+
+#game-board .card-back {
+    background: linear-gradient(160deg, var(--card-back), var(--card-back-border));
+    border: 2px solid var(--card-back-border);
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.08);
+}
+
+#game-board .card.matched {
+    opacity: 0.55;
+    cursor: default;
+    pointer-events: none;
+    filter: saturate(1.1);
+    animation: pop 300ms ease;
+}
+
+/* =========
+    Formularios (labels SIEMPRE visibles en negro y negrita)
+    ========= */
+form p {
+    margin-bottom: 1rem;
+    text-align: left;
+    color: var(--muted);
+}
+
+/* más específico para ganar a Bootstrap */
+.container form label,
+form label {
+    display: block;
+    margin-bottom: 0.45rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.2px;
+}
+
+/* Inputs */
+form input[type="text"],
+form input[type="password"],
+form input[type="email"] {
+    width: 100%;
+    padding: 0.95rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.95);
+    color: #111;
+    font-weight: 600;
+    border-radius: 14px;
+    outline: none;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: box-shadow var(--transition), border-color var(--transition), background var(--transition), transform var(--transition);
+}
+
+form input::placeholder {
+    color: var(--muted);
+}
+
+form input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(255, 112, 67, 0.18);
+    background: #fff;
+    transform: translateY(-1px);
+}
+
+/* =========
+    Otros detalles
+    ========= */
+audio {
+    display: none;
+}
+
+#attempts-left,
+#time-left {
+    font-weight: 800;
+    color: #212121;
+    padding: 0.15rem 0.5rem;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(255, 112, 67, 0.18), rgba(255, 173, 153, 0.12));
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+/* =========
+    Animaciones
+    ========= */
+@keyframes pop {
+    from {
+        transform: scale(0.96);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========
+    Responsivo
+    ========= */
+@media (max-width: 768px) {
+    .container {
+        padding: 22px;
+    }
+    #game-board {
+        gap: 14px;
+        max-width: 600px;
+    }
+    #game-board .card {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 520px) {
+    #game-board {
+        gap: 12px;
+        max-width: 480px;
+    }
+    #game-board .card {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* =================================
+    Estilos para el Login Split Screen
+    ================================= */
+.split-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.login-section,
+.image-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff; /* Fondo para la sección del login */
+}
+
+.image-section {
+  background-image: url('/static/memgame/images/loginFruit.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* Ajustes para el formulario dentro del login-section */
+.login-form-container {
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Media query para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+  .split-container {
+    flex-direction: column;
+  }
+  .image-section {
+    height: 250px; /* Altura para la imagen en móviles */
+  }
+}

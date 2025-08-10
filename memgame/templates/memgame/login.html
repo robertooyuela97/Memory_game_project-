@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Memory Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'memgame/css/style.css' %}">
+</head>
+<body>
+
+    <div class="split-container">
+        
+        <div class="login-section">
+            <div class="login-form-container">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h1>Memory Game🐵 Grupo #2</h1>
+                        <h2><b>Iniciar Sesión</b></h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+                        </form>
+                        <hr />
+                        <p class="text-center">
+                            ¿No tienes cuenta?
+                            <a href="{% url 'memgame:register' %}">Regístrate aquí</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="image-section">
+            </div>
+
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seleccionar Nivel - Memory Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'memgame/css/style.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header text-center">
+                        <h2>¡Hola, {{ user.username }}!</h2>
+                        <h3>Selecciona un Nivel de Dificultad 🙈</h3>
+                    </div>
+
+                    <div class="card-body text-center">
+                        <div class="list-group">
+                            <a href="{% url 'memgame:game' 'Básico' %}" class="list-group-item list-group-item-action list-group-item-primary mb-2">
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <span>
+                                        Nivel Basico <span class="stars">★</span>
+                                    </span>
+                                    <small>10 intentos, 8 cartas, 60s</small>
+                                </div>
+                            </a>
+                            <a href="{% url 'memgame:game' 'Medio' %}" class="list-group-item list-group-item-action list-group-item-warning mb-2">
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <span>
+                                        Nivel Medio <span class="stars">★★</span>
+                                    </span>
+                                    <small>8 intentos, 12 cartas, 80s</small>
+                                </div>
+                            </a>
+                            <a href="{% url 'memgame:game' 'Avanzado' %}" class="list-group-item list-group-item-action list-group-item-danger mb-2">
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <span>
+                                        Nivel Avanzado <span class="stars">★★★</span>
+                                    </span>
+                                    <small>6 intentos, 16 cartas, 90s</small>
+                                </div>
+                            </a>
+                        </div>
+
+                        <hr />
+                        <p><a href="{% url 'memgame:profile' %}" class="btn btn-info mt-3">Ver mi Perfil</a></p>
+                        <p><a href="{% url 'memgame:logout' %}" class="btn btn-secondary mt-2">Cerrar Sesión</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
