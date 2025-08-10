@@ -52,7 +52,7 @@ Docker Compose
 Pasos
 Clonar el repositorio:
 
-git clone https://github.com/tu-usuario/nombre-del-repositorio.git
+git clone https://github.com/robertooyuela97/Memory_game_project-
 cd nombre-del-repositorio
 
 Configurar las variables de entorno:
@@ -81,10 +81,3 @@ Inicio de Sesión: Accede con tus credenciales.
 Juego: Selecciona un nivel y comienza a jugar.
 
 
-Contribuciones
-Este proyecto fue desarrollado por:
-
-[Tu nombre(s)]
-
-Licencia
-Este proyecto está bajo la Licencia MIT. Para más detalles, consulta el archivo LICENSE.md.
