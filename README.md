@@ -1,5 +1,7 @@
 Memory Game
 Descripción del Proyecto
+
+
 Memory Game es un juego web interactivo desarrollado como parte de un proyecto de la asignatura Arquitectura de Computadoras. El objetivo principal es demostrar la aplicación de principios de arquitectura de software moderna y buenas prácticas de desarrollo, utilizando Django para la lógica del backend y Docker para la orquestación del entorno.
 
 El juego desafía a los jugadores a encontrar pares de cartas idénticas en un tablero de 4
